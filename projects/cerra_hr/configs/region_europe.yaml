@@ -1,0 +1,5 @@
+bbox:      {lat_min: 35.0, lat_max: 72.0, lon_min: -25.0, lon_max: 45.0}
+grid:      {H: 720, W: 1200}       # <-- replace with your real CERRA crop H,W
+levels_hpa:[50,100,150,200,250,300,400,500,600,700,850,925,1000]
+dt_hours:  6
+patch_size: 4                       # MUST divide W exactly (4/6/8…)
