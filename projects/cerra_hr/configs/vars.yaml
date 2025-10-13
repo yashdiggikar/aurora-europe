@@ -1,0 +1,3 @@
+surf_vars:  ["2t","10u","10v","msl","sp"]
+static_vars:["z","lsm"]
+atmos_vars: ["t","u","v","q","z"]   # 13 pressure levels in data
