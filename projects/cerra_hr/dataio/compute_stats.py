@@ -1,7 +1,7 @@
 import xarray as xr, json, argparse
 
 V_SURF = ["2t","10u","10v","msl","sp"]
-V_ATM  = ["t","u","v","q","z"]
+V_ATM  = ["t","u","v","rh","z"]
 V_STATIC=["z","lsm"]
 
 def get_stats(ds, var):
