@@ -13,10 +13,11 @@ save_dir: runs/ckpts
 
 target_vars:
   surf:  ["2t"]
-  atmos: ["t","u","v"]
+  atmos: ["t","u","v","rh"]
 
 loss_weights:
   "surf:2t": 1.0
   "atmos:t": 0.25
   "atmos:u": 0.25
   "atmos:v": 0.25
+  "atmos:rh": 0.25
