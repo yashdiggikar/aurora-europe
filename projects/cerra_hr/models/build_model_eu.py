@@ -10,6 +10,6 @@ def build_model_eu(surf_vars, static_vars, atmos_vars,
         bf16_mode=bf16,                  # per docs: experimental, helps memory
         stabilise_level_agg=stabilise,   # per docs: use if grads explode
     )
-    model.load_checkpoint(strict=strict)  # strict=False if you extend variables
+    model.load_checkpoint(strict=False)  # strict=False if you extend variables
     model.configure_activation_checkpointing()  # per docs
     return model
