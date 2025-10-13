@@ -1,0 +1,22 @@
+precision: bf16
+grad_checkpoint: true
+clip_grad_norm: 1.0
+
+stage1: {train_parts: ["decoder"],                           lr: 3.0e-4, epochs: 2}
+stage2: {train_parts: ["decoder","level_agg"],               lr: 3.0e-5, epochs: 3}
+stage3: {train_parts: ["decoder","level_agg","backbone"],    lr: 1.0e-5, epochs: 3}
+
+batch_size: 1
+num_workers: 2
+val_interval_steps: 500
+save_dir: runs/ckpts
+
+target_vars:
+  surf:  ["2t"]
+  atmos: ["t","u","v"]
+
+loss_weights:
+  "surf:2t": 1.0
+  "atmos:t": 0.25
+  "atmos:u": 0.25
+  "atmos:v": 0.25
