@@ -11,10 +11,14 @@ num_workers: 2
 val_interval_steps: 500
 save_dir: runs/ckpts
 
+# -------------------------------------------------------
+# what we ask the model to predict / learn
+# -------------------------------------------------------
 target_vars:
-  surf:  ["2t", "10u", "10v", "sp", "msl"]
-  atmos: ["t","u","v","rh","z"]   # <-- dynamic geopotential height
+  surf:  ["2t", "10u", "10v", "sp", "msl"]        # surface variables
+  atmos: ["t", "u", "v", "rh", "z"]               # 3-D atmospheric variables (13 levels)
 
+# relative importance of each term in total loss
 loss_weights:
   "surf:2t": 1.0
   "surf:10u": 0.5
