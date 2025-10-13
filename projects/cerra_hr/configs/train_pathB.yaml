@@ -12,12 +12,17 @@ val_interval_steps: 500
 save_dir: runs/ckpts
 
 target_vars:
-  surf:  ["2t"]
-  atmos: ["t","u","v","rh"]
+  surf:  ["2t", "10u", "10v", "sp", "msl"]
+  atmos: ["t","u","v","rh","z"]   # <-- dynamic geopotential height
 
 loss_weights:
   "surf:2t": 1.0
-  "atmos:t": 0.25
-  "atmos:u": 0.25
-  "atmos:v": 0.25
+  "surf:10u": 0.5
+  "surf:10v": 0.5
+  "surf:sp":  0.25
+  "surf:msl": 0.25
+  "atmos:t":  0.25
+  "atmos:u":  0.25
+  "atmos:v":  0.25
   "atmos:rh": 0.25
+  "atmos:z":  0.25
