@@ -83,10 +83,32 @@ def evaluate(model, val_dl, cfg_vars, cfg_train):
             tot += float(loss.item()); cnt += 1
     return tot / max(cnt,1)
 
+def make_optimizer(model, base_lr=3e-4, new_token_lr=1e-3):
+    """
+    Two-LR optimizer: higher LR for new 'rh' token embeddings.
+    Falls back to single LR if we can't find those params.
+    """
+    new_params, base_params = [], []
+    for n, p in model.named_parameters():
+        name = n.lower()
+        is_token = ("token_embed" in name) or ("token_embeds" in name)
+        if is_token and ("rh" in name):
+            new_params.append(p)
+        else:
+            base_params.append(p)
+    if not new_params:
+        # Fallback: single group; still works fine
+        return torch.optim.AdamW(model.parameters(), lr=base_lr, weight_decay=1e-4)
+    return torch.optim.AdamW(
+        [{"params": base_params, "lr": base_lr},
+         {"params": new_params, "lr": new_token_lr}],
+        weight_decay=1e-4
+    )
+
 def run_stage(model, train_dl, val_dl, lat2d, cfg_vars, cfg_train, train_parts, lr, epochs, clip=1.0):
     freeze_except(model, train_parts)
     params = [p for p in model.parameters() if p.requires_grad]
-    opt = torch.optim.AdamW(params, lr=lr, weight_decay=1e-4)
+    opt = make_optimizer(model, base_lr=lr, new_token_lr=max(lr * 3, 1e-3))
     scaler = torch.cuda.amp.GradScaler(enabled=True)
 
     step, best_val = 0, float("inf")
