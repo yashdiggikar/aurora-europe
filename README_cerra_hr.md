@@ -1,4 +1,4 @@
-# Aurora Europe 5.5 km (Path B)
+# Aurora Europe 5.5 km 
 
 Fine-tuning Microsoft **Aurora** for **Europe** at **native 5.5 km** resolution using **CERRA (2021–2023)**.  
 This project follows a **project-layer only** approach — **no core edits** to `aurora/`. We configure variables/region, build the pretrained model with our settings, and fine-tune in stages (decoder → level_agg → backbone) using **BF16** + **activation checkpointing**.
@@ -34,7 +34,7 @@ This project follows a **project-layer only** approach — **no core edits** to 
 
 ---
 
-## File & Directory Guide (1–5 lines each)
+## File & Directory Guide 
 
 ### `configs/`
 - **`region_europe.yaml`** — Defines **domain** (lat/lon bbox), **grid** (`H`,`W`), **pressure levels**, `dt_hours`, and `patch_size`. Must match your actual CERRA data.
@@ -70,7 +70,7 @@ This project follows a **project-layer only** approach — **no core edits** to 
 
 ---
 
-## Training Details (Path B)
+## Training Details 
 
 - **Precision & memory** — BF16 for speed/stability on modern GPUs; **activation checkpointing** to save memory during backprop.
 - **Staged unfreezing**  
@@ -92,7 +92,7 @@ This project follows a **project-layer only** approach — **no core edits** to 
 
 ---
 
-## Tips & Gotchas
+## Tips 
 
 - Ensure `patch_size` **divides** both `H` and `W`.
 - `levels_hpa` in `region_europe.yaml` must match your dataset’s pressure levels exactly.
